@@ -43,7 +43,7 @@ class Page extends React.Component {
   render() {
     let {page, store} = this.props;
     return (
-      <Container ref='dom' onDragOver={this.onDragOver} onDrop={this.onDrop} onMouseDown={() => {store.setActiveInstance(undefined)}}>
+      <Container ref='dom' onDragOver={this.onDragOver} onDrop={this.onDrop}>
         {page.instances.map(i => <UIComponent key={i} active={store.activeInstance === i} instance={i}/>)}
       </Container>
     )

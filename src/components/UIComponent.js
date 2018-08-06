@@ -36,8 +36,9 @@ class UIComponent extends React.Component {
            bounds='parent' dragGrid={[10, 10]} resizeGrid={[10, 10]} onMouseDown={this.onClick}>
         {this.renderComponent()}
         {this.props.active &&
-        <div className='dragHandle' style={{width: 20, height: 20, position: 'absolute', right: 5, top: 5}}>
-          <Icon type="menu-unfold"/>
+        <div style={{width: 40, height: 20, position: 'absolute', right: 2, top: 2, textAlign: 'right', letterSpacing: 4}}>
+          <Icon className='dragHandle' type="menu-unfold"/>
+          <Icon type="close" onClick={() => {store.pageStore.currentPage.removeInstance(instance)}}/>
         </div>
         }
       </Rnd>

@@ -99,7 +99,7 @@ class Content extends React.Component {
     const {store} = this.props;
 
     return (
-        <Container>
+        <Container onMouseDown={() => {store.setActiveInstance(undefined)}}>
           {store.pageStore.currentPage &&
           <Page page={store.pageStore.currentPage}/>
           }

@@ -16,6 +16,9 @@ export const Page = types
       if (args.type === 'card') {
         self.instances.push(CardStencil.create(args))
       }
+    },
+    removeInstance(instance) {
+      self.instances.remove(instance);
     }
   }));
 
