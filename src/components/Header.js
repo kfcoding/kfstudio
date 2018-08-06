@@ -6,6 +6,8 @@ const Container = styled.div`
  height: 28px;
  border-bottom: 1px solid #ccc;
  line-height: 28px;
+ width: 100%;
+ flex: 0 1 auto;
 `;
 
 const Item = styled.div`

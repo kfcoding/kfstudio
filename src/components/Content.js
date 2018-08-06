@@ -1,19 +1,28 @@
 import React from 'react';
-import { Icon, Card, Upload } from 'antd';
+import { Icon } from 'antd';
 import styled from 'styled-components';
-import RGL, { WidthProvider } from 'react-grid-layout';
 import { inject, observer } from 'mobx-react';
-import ContentEditable from 'react-contenteditable'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-grid-layout/css/styles.css';
+import ReactDOM from 'react-dom';
+import UIComponent from './UIComponent';
+import View from 'react-flexbox'
+import Page from 'components/Page';
 
-const ReactGridLayout = WidthProvider(RGL);
-const Dragger = Upload.Dragger;
+// const Dragger = Upload.Dragger;
 
+// const TabPane = Tabs.TabPane;
 
 const Container = styled.div`
-  height: 100%;
   background: #eee;
+  position: relative;
+  z-index: 0;
+  overflow: auto;
+  height: 100%;
+  // flex: 1 1 auto;
+  padding: 30px;
 `;
+
 
 @inject('store')
 @observer
@@ -24,9 +33,6 @@ class Content extends React.Component {
     rowHeight: 100
   };
 
-  state = {
-    draggable: true
-  }
 
   rm = (block) => {
     this.props.store.blockStore.removeBlock(block);
@@ -36,64 +42,68 @@ class Content extends React.Component {
     console.log(e.target.value)
   }
 
-  renderBlock = (info) => {
-    let block = info;
-    if (info.type === 'card') {
-      return (
-        <div key={info.i} style={{position: 'relative'}}>
-          <span style={{position: 'absolute', zIndex: 1, right: 10, top: 16, color: '#333'}}>
-            <span className='draggableHandle' style={{marginRight: 10}}><Icon type="compass"/></span>
-            <Icon type="close" onClick={() => {
-              this.rm(info)
-            }}/>
-          </span>
-          <Card title={<ContentEditable html='title'/>} style={{height: '100%', overflow: 'hidden'}}>
-            <div style={{}}>
-              <ContentEditable onChange={this.cg}/>
-            </div>
-          </Card>
-        </div>
-      )
-    } else if (block.type === 'image') {
-      
-      return (
-        <div key={info.i} style={{position: 'relative', textAlign: 'center', background: '#fff'}}>
-          <span style={{position: 'absolute', zIndex: 1, right: 10, top: 16, color: '#333'}}>
-            <Icon style={{marginRight: 10}} type="edit"/>
-            <span className='draggableHandle' style={{marginRight: 10}}><Icon type="compass"/></span>
-            <Icon type="close" onClick={() => {
-              this.rm(info)
-            }}/>
-          </span>
-          <Dragger>
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
-          </Dragger>
-        </div>
-      )
-    }
-  }
+  // renderBlock = (info) => {
+  //   console.log(info)
+  //   let store = this.props.store;
+  //   let block = info, b = info, component = info;
+  //   if (info.type === 'card') {
+  //     return (
+  //       <Card key={component} component={component}/>
+  //     )
+  //   } else if (block.type === 'image') {
+  //
+  //     return (
+  //       <div key={info.i} style={{position: 'relative', overflow: 'hidden'}}>
+  //         <Dragger>
+  //           <p className="ant-upload-drag-icon">
+  //             <Icon type="inbox"/>
+  //           </p>
+  //           <p className="ant-upload-text">Click or drag file to this area to upload</p>
+  //           <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company
+  //             data or other band files</p>
+  //         </Dragger>
+  //       </div>
+  //     )
+  //   } else if (block.type === 'layout') {
+  //     return (
+  //       <div
+  //         key={block.i}
+  //         style={{background: '#fff'}}
+  //       >
+  //         <SplitPane
+  //           defaultSize={200}
+  //         >
+  //           <ContentEditable html='123'/>
+  //           <ContentEditable html='321'/>
+  //         </SplitPane>
+  //       </div>
+  //     )
+  //   } else if (component.type === 'panel') {
+  //     return (
+  //       <Rnd key={info.i} disableDragging={!store.dnd} bounds='parent'
+  //            style={{
+  //              background: '#fff',
+  //              border: '1px solid #e8e8e8',
+  //              cursor: store.dnd ? 'move' : 'auto',
+  //              overflow: 'scroll'
+  //            }}
+  //            default={{x: b.x - b.x % 10, y: b.y - b.y % 10, width: 400, height: 'auto'}}
+  //            bounds='parent' dragGrid={[10, 10]} resizeGrid={[10, 10]}>
+  //         <ContentEditable onChange={this.cg} html={component.content}/>
+  //       </Rnd>
+  //     )
+  //   }
+  // }
 
   render() {
     const {store} = this.props;
+
     return (
-      <Container>
-        <ReactGridLayout
-          {...this.props}
-          isDraggable={this.state.draggable}
-          className="layout"
-          layout={store.blockStore.blocks.toJS()} cols={24} rowHeight={30}
-          width={1200}
-          draggableHandle='.draggableHandle'
-          style={{overflow: 'auto', height: 'calc(100vh - 88px)', paddingBottom: 30}}
-          autoSize={false}
-        >
-          {store.blockStore.blocks.map(b => this.renderBlock(b))}
-        </ReactGridLayout>
-      </Container>
+        <Container>
+          {store.pageStore.currentPage &&
+          <Page page={store.pageStore.currentPage}/>
+          }
+        </Container>
     )
   }
 }

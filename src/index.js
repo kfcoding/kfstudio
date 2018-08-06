@@ -7,9 +7,8 @@ import { Store } from './stores';
 import { Provider } from 'mobx-react';
 import { onSnapshot } from 'mobx-state-tree';
 
-const store = Store.create(
-  {}
-);
+const store = Store.create({
+});
 
 
 onSnapshot(store, (snapshot) => {

@@ -7,6 +7,15 @@ body {
   outline: none;
 }
 
+#root, .App {
+  height: 100%;
+}
+
+.Pane {
+  display: flex;
+  flex-flow: column;
+}
+
 .Resizer {
   background: #000;
   opacity: .2;
@@ -55,4 +64,59 @@ body {
 }
 .Resizer.disabled:hover {
   border-color: transparent;
+}
+
+
+
+.react-tabs__tab-list {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  height: 30px;
+  color: #333;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  position: relative;
+  list-style: none;
+  padding: 6px 4px 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #bbb;
+}
+
+.react-tabs__tab--selected {
+  background: #eee;
+  border-bottom: 1px solid #6CAEDD;
+  color: #333;
+}
+
+.react-tabs__tab--disabled {
+  color: GrayText;
+  cursor: default;
+}
+
+.react-tabs__tab:focus {
+  box-shadow: 0 0 5px hsl(208, 99%, 50%);
+  border-color: hsl(208, 99%, 50%);
+  outline: none;
+}
+
+.react-tabs__tab:focus:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  left: -4px;
+  right: -4px;
+  bottom: -5px;
+  background: #fff;
+}
+
+.react-tabs__tab-panel {
+  display: none;
+}
+
+.react-tabs__tab-panel--selected {
+  display: block;
 }
