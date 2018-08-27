@@ -8,10 +8,10 @@ import { inject, observer } from 'mobx-react';
 @observer
 class Textbox extends React.Component {
   render() {
-    const {store, component} = this.props;
+    const {store, instance} = this.props;
     return (
 
-          <ContentEditable onChange={this.cg} html={component.content} style={{background: '#fff', height: '100%'}}/>
+      <div contentEditable={true} onChange={e => instance.setProp('content', e.target.value)} html={instance.props.get('content')} style={{fontSize: instance.props.get('fontSize')}}/>
 
     )
   }

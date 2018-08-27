@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Dropdown, Icon } from 'antd';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
 
 const Container = styled.div`
  height: 28px;
@@ -8,6 +9,8 @@ const Container = styled.div`
  line-height: 28px;
  width: 100%;
  flex: 0 1 auto;
+ background: #f4f4f4;
+ padding-right: 10px;
 `;
 
 const Item = styled.div`
@@ -16,22 +19,20 @@ const Item = styled.div`
   cursor: pointer
 `;
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
-    </Menu.Item>
-  </Menu>
-);
-
+@inject('store')
+@observer
 class Header extends React.Component {
   render() {
+    const {store} = this.props;
+
+    const menu = (
+      <Menu>
+        <Menu.Item>
+          <span onClick={store.initProject}><Icon type="file"/> 新建</span>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
       <Container>
         <Dropdown overlay={menu} trigger={['click']}>
@@ -39,11 +40,9 @@ class Header extends React.Component {
             文件
           </Item>
         </Dropdown>
-        <Dropdown overlay={menu} trigger={['click']}>
-          <Item className="" href="#">
-            编辑
-          </Item>
-        </Dropdown>
+        <div style={{float: 'right'}}>
+          <Icon type="upload" />
+        </div>
       </Container>
     )
   }

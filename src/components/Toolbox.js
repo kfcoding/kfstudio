@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, Tooltip } from 'antd';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import ComponentIcon from './ComponentIcon';
@@ -30,8 +30,10 @@ class Toolbox extends React.Component {
           {/*<Icon onClick={() => {this.insert('layout')}} type="appstore-o" />*/}
 
           {/*{values(store.stencils).map(s => <ComponentIcon key={s.type} type={s.type} icon={<Icon type={s.icon}/>}/>)}*/}
-          <ComponentIcon type='card' icon={<Icon type="credit-card"/>}/>
-          <ComponentIcon type='panel' icon={<Icon type="profile"/>}/>
+
+          <ComponentIcon type='card' icon={<Tooltip title='卡片' placement='top'><Icon type="credit-card"/></Tooltip>}/>
+          <ComponentIcon type='textbox' icon={<Tooltip title='文本框' placement='top'><Icon type="profile"/></Tooltip>}/>
+            <ComponentIcon type='coder' icon={<Tooltip title='代码' placement='top'><Icon type="code-o" /></Tooltip>}/>
         </div>
       </Container>
     )

@@ -3,19 +3,18 @@ import {types} from 'mobx-state-tree';
 import { Card as AntdCard } from 'antd';
 import ContentEditable from 'react-contenteditable';
 import { BaseStencil } from 'stores/stencils/BaseStencil';
-import { Instance } from 'stores/Instance';
 
-export const CardStencil = BaseStencil
-  .named('CardStencil')
+export const CoderStencil = BaseStencil
+  .named('CoderStencil')
   .props({
-    w: 400,
+    w: 500,
     h: 500,
-    type: 'card',
+    type: 'coder'
   }).actions(self => ({
     afterCreate() {
       self.props = {
-        title: 'Title',
-        content: 'c'
+        language: 'javascript',
+        content: 'alert(1);'
       }
     }
   }));

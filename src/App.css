@@ -120,3 +120,16 @@ body {
 .react-tabs__tab-panel--selected {
   display: block;
 }
+
+
+.ReactCodeMirror, .CodeMirror {
+  height: 100% !important;
+}
+
+.ant-card-body {
+  height: calc(100% - 57px);
+}
+
+.ant-tooltip {
+  font-size: 12px !important;
+}

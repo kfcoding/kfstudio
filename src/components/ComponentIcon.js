@@ -15,7 +15,7 @@ class ComponentIcon extends React.Component {
   render() {
     return (
       <div style={{float: 'left', marginRight: 10}}>
-        <span draggable={true} onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} onDrag={this.drag}>
+        <span draggable={true} onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
           {this.props.icon}
         </span>
       </div>

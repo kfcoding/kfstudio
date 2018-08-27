@@ -5,13 +5,13 @@ import { Card as AntdCard } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 @inject('store')
-@observer
+// @observer
 class Card extends React.Component {
   render() {
     const {store, instance} = this.props;
     return (
-        <AntdCard style={{width: '100%', height: '100%'}} title={<ContentEditable html={instance.title}/>}>
-          <ContentEditable onChange={this.cg} html={instance.content}/>
+        <AntdCard style={{width: '100%', height: '100%'}} title={<ContentEditable onChange={e => instance.setProp('title', e.target.value)} html={instance.props.get('title')}/>}>
+          <ContentEditable onChange={(e) => instance.setProp('content', e.target.value)} html={instance.props.get('content')} style={{overflow: 'auto', height: '100%'}}/>
         </AntdCard>
     )
   }

@@ -13,15 +13,28 @@ export const Instance = types
     w: 200,
     h: 150,
     active: false,
-    stencil: types.reference(Stencil),
+    // stencil: types.reference(Stencil),
+    type: types.string,
     props: types.optional(types.map(types.string), {})
   }).views(self => ({
 
   })).actions(self => ({
-    afterCreate() {
-      self.stencil.props.forEach((v, k) => {
-        self[k] = v;
-        self.props.set(k, v);
-      });
+    setWidth(w) {
+      self.w = w;
+    },
+    setHeight(h) {
+      self.h = h;
+    },
+    setX(x) {
+      self.x = x;
+    },
+    setY(y) {
+      self.y = y;
     }
+    // afterCreate() {
+    //   self.stencil.props.forEach((v, k) => {
+    //     self[k] = v;
+    //     self.props.set(k, v);
+    //   });
+    // }
   }));
