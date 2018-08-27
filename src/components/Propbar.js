@@ -30,6 +30,9 @@ class Propbar extends React.Component {
             <Form.Item label='字体大小'>
               <InputNumber min={1} max={200} defaultValue={store.activeInstance.props.get('fontSize')} onChange={v => store.activeInstance.setProp('fontSize', v * 1)}/>
             </Form.Item>
+            <Form.Item label='字体颜色'>
+              <input type='color' value={store.activeInstance.props.get('color')} onChange={e => store.activeInstance.setProp('color', e.target.value)}/>
+            </Form.Item>
           </div>
           }
           {activeInstance.type === 'coder' &&

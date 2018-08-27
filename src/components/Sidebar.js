@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Collapse, Icon, Card, List, Dropdown, Menu } from 'antd';
+import { Collapse, Icon, Avatar, List, Popover, Dropdown, Menu } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 const Panel = Collapse.Panel;
@@ -16,14 +16,19 @@ const Container = styled.div`
 class Sidebar extends React.Component {
 
   state = {
-    currentPage: null
+    currentPage: null,
+    popoverVisible: false
   }
 
-  addPage() {
+  addPage(type) {
     let name = window.prompt('请输入页面标题', '新页面');
-    this.props.store.addPage(name);
+    if (!name) {
+      return;
+    }
+    this.props.store.addPage(name, type);
+    this.setState({popoverVisible: false});
   }
-  
+
   render() {
     const {store} = this.props;
 
@@ -47,12 +52,42 @@ class Sidebar extends React.Component {
       </Menu>
     );
 
+    const data = [{
+      title: '空页面',
+      image: 'https://tse4.mm.bing.net/th?id=OIP.dz4NiZrpVG_rODmEPOMWMwHaHa&pid=Api',
+      type: 'blank'
+    }, {
+      title: '标题-内容-代码',
+      image: 'https://tse2.mm.bing.net/th?id=OIP.lLzc3DXfz0gnTVUmfuqrUwHaHa&pid=Api',
+      type: 'title-content-code'
+    }]
+
+    const content = (
+        <List
+          itemLayout="horizontal"
+          dataSource={data}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                style={{cursor: 'pointer'}}
+                onClick={() => this.addPage(item.type)}
+                avatar={<Avatar src={item.image} shape='square'/>}
+                title={item.title}
+              />
+            </List.Item>
+          )}
+        >
+        </List>
+    );
+
     return (
       <Container>
         <div style={{height: 30, lineHeight: '30px', padding: '0 5px', borderBottom: '1px solid #ccc'}}>
           页面列表
           <div style={{float: 'right'}}>
-          <Icon type='plus-square-o' onClick={() => this.addPage()} style={{cursor: 'pointer'}}/>
+            <Popover content={content} trigger='click' visible={this.state.popoverVisible} onVisibleChange={v => this.setState({popoverVisible: v})}>
+              <Icon type='plus-square-o' style={{cursor: 'pointer'}}/>
+            </Popover>
           </div>
         </div>
         <Menu style={{height: 'calc(100% - 30px)', overflowY: 'auto', overflowX: 'hidden', width: '10'}} selectedKeys={[store.currentPage && store.currentPage.id]} mode='inline'>

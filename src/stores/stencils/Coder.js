@@ -14,7 +14,7 @@ export const CoderStencil = BaseStencil
     afterCreate() {
       self.props = {
         language: 'javascript',
-        content: 'alert(1);'
+        content: '// type your code here'
       }
     }
   }));

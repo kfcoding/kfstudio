@@ -10,8 +10,8 @@ import { BaseStencil } from 'stores/stencils/BaseStencil';
 export const Page = types
   .model('Page', {
     id: types.optional(types.identifier, () => new Date().getTime() + ''),
-    w: 1200,
-    h: 800,
+    width: 1000,
+    height: 640,
     name: '页面',
     instances: types.array(StencilType)
   }).actions(self => ({
@@ -32,8 +32,6 @@ export const Page = types
         return;
       }
 
-      console.log(getSnapshot(instance));
-
       self.instances.push(instance);
       getRoot(self).setActiveInstance(instance);
       return;
@@ -50,6 +48,7 @@ export const Page = types
       }
     },
     removeInstance(instance) {
+      getRoot(self).setActiveInstance(undefined);
       self.instances.remove(instance);
     },
     setName(name) {

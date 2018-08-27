@@ -14,8 +14,8 @@ export const CardStencil = BaseStencil
   }).actions(self => ({
     afterCreate() {
       self.props = {
-        title: 'Title',
-        content: 'c'
+        title: '标题',
+        content: '内容'
       }
     }
   }));

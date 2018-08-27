@@ -7,8 +7,7 @@ import {Progress, Button, Icon} from 'antd';
 
 
 const Container = styled.div`
-  width: 1000px;
-  height: 700px;
+  width: ${props => props.page.width + 'px'};
   margin: 0 auto;
   background: #fff;
   position: relative;
@@ -17,7 +16,6 @@ const Container = styled.div`
 const Footer = styled.div`
   height: 60px;
   background: #dadada;
-  position: absolute;
   bottom: 0;
   width: 100%;
   padding: 0 20px;
@@ -58,8 +56,8 @@ class Page extends React.Component {
     let pageIndex = store.pages.findIndex(ele => ele === page);
     let percent = Math.floor(100 * (pageIndex + 1) / store.pages.length);
     return (
-      <Container ref='dom' onDragOver={this.onDragOver} onDrop={this.onDrop}>
-        <div style={{height: 'calc(100% - 60px)'}}>
+      <Container ref='dom' onDragOver={this.onDragOver} onDrop={this.onDrop} page={page}>
+        <div style={{height: page.height, width: page.width}}>
         {page.instances.map(i => <UIComponent key={i} active={store.activeInstance === i} instance={i}/>)}
         </div>
         <Footer>

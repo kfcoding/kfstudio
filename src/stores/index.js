@@ -25,10 +25,16 @@ export const Store = types
     setDnd(flag) {
       self.dnd = flag;
     },
-    addPage(name) {
+    addPage(name, type) {
       let page = Page.create({name: name});
       self.pages.push(page);
       self.currentPage = page;
+
+      if (type === 'title-content-code') {
+        page.addInstance({type: 'textbox', x: 200, y: 20, w: page.width - 400, props: {content: '标题', fontSize: 24, textAlign: 'center'}});
+        page.addInstance({type: 'card', x: 0, y: 80, w: page.width / 2, h: page.height - 80});
+        page.addInstance({type: 'coder', x: page.width / 2, y: 80, w: page.width / 2, h: page.height - 80});
+      }
     },
     removePage(page) {
       self.currentPage = undefined;

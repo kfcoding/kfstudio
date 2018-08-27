@@ -12,7 +12,7 @@ const store = Store.create({
 
 
 onSnapshot(store, (snapshot) => {
-  console.dir(snapshot)
+  console.dir(JSON.stringify(snapshot))
 })
 
 ReactDOM.render(
